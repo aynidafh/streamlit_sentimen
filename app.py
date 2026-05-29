@@ -129,7 +129,7 @@ p, li { color: #475569 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─── SLANG DICT ───────────────────────────────────────────────────────────────
+#  SLANG DICT 
 slang_dict = {
     "sy":"saya","sya":"saya","aq":"saya","ak":"saya","gw":"saya","gue":"saya","gua":"saya","w":"saya",
     "km":"kamu","lo":"kamu","loe":"kamu","lu":"kamu",
@@ -233,15 +233,15 @@ def preprocess(text):
     words = [stemmer.stem(w) for w in words if w not in sw]
     return ' '.join(words)
 
-# ─── SIDEBAR ──────────────────────────────────────────────────────────────────
+#  SIDEBAR 
 st.sidebar.markdown("### MENU")
 menu = st.sidebar.radio("", [
     "Beranda", "Analisis Data", "WordCloud", "N-Gram", "Prediksi Sentimen"
 ])
 st.sidebar.markdown("---")
-st.sidebar.markdown("**Kelompok 16**")
-st.sidebar.caption("Devi Roslidyanti · 23031030024")
-st.sidebar.caption("Sekar Ayu Nida Nur Afifah · 23031030028")
+st.sidebar.markdown("**Author**")
+st.sidebar.caption("Sekar Ayu Nida Nur Afifah")
+st.sidebar.caption("Devi Roslidyanti")
 
 try:
     model, vectorizer = load_model()
@@ -304,7 +304,7 @@ if menu == "Beranda":
         - Prediksi sentimen teks baru secara real-time  
         """)
 
-# ─── ANALISIS DATA ─────────────────────────────────────────────────────────────
+#  ANALISIS DATA 
 elif menu == "Analisis Data":
     st.markdown("## Analisis Data")
     if not data_loaded:
@@ -351,7 +351,7 @@ elif menu == "Analisis Data":
         c6.metric("F1-Score", "74.15%")
         st.info("Kernel terbaik: **RBF** (C=100, gamma=0.1) · CV Score: 0.6582 · Rata-rata CV Accuracy: 70.16%")
 
-# ─── WORDCLOUD ─────────────────────────────────────────────────────────────────
+#  WORDCLOUD 
 elif menu == "WordCloud":
     st.markdown("## WordCloud")
     if not data_loaded:
@@ -379,7 +379,7 @@ elif menu == "WordCloud":
             fig.tight_layout()
             st.pyplot(fig); plt.close()
 
-# ─── N-GRAM ────────────────────────────────────────────────────────────────────
+# N-GRAM 
 elif menu == "N-Gram":
     st.markdown("## Analisis N-Gram")
     if not data_loaded:
@@ -409,7 +409,7 @@ elif menu == "N-Gram":
         with t3:
             plot_ng(Counter(ngrams(all_words, 3)).most_common(top_n), 'Distribusi Trigram', '#F59E0B')
 
-# ─── PREDIKSI ──────────────────────────────────────────────────────────────────
+# PREDIKSI 
 elif menu == "Prediksi Sentimen":
     st.markdown("## Prediksi Sentimen")
     st.markdown("Masukkan teks tweet untuk diprediksi sentimennya menggunakan model SVM.")
