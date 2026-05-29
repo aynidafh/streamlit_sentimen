@@ -53,7 +53,7 @@ div[data-baseweb="select"] > div { background-color: #FFFFFF !important; color: 
 </style>
 """, unsafe_allow_html=True)
 
-# ─── SLANG DICT ───────────────────────────────────────────────────────────────
+# SLANG DICT 
 slang_dict = {
     "sy":"saya","sya":"saya","aq":"saya","ak":"saya","gw":"saya","gue":"saya","gua":"saya","w":"saya",
     "km":"kamu","lo":"kamu","loe":"kamu","lu":"kamu",
@@ -160,15 +160,15 @@ def preprocess(text):
 def interpretasi(teks):
     st.markdown(f'<div class="interpretasi">💡 <b>Interpretasi:</b> {teks}</div>', unsafe_allow_html=True)
 
-# ─── SIDEBAR ──────────────────────────────────────────────────────────────────
+#  SIDEBAR 
 st.sidebar.markdown("### MENU")
 menu = st.sidebar.radio("", [
     "Beranda", "Analisis Data", "Evaluasi Model", "WordCloud", "N-Gram", "Prediksi Sentimen"
 ])
 st.sidebar.markdown("---")
-st.sidebar.markdown("**Kelompok 16**")
-st.sidebar.caption("Devi Roslidyanti · 23031030024")
-st.sidebar.caption("Sekar Ayu Nida Nur Afifah · 23031030028")
+st.sidebar.markdown("**Author**")
+st.sidebar.caption("Sekar Ayu Nida Nur Afifah")
+st.sidebar.caption("Devi Roslidyanti")
 
 try:
     model, vectorizer = load_model()
@@ -197,7 +197,7 @@ def styled_plot(figsize=(6,4)):
     ax.xaxis.label.set_color('#475569')
     return fig, ax
 
-# ─── BERANDA ──────────────────────────────────────────────────────────────────
+#  BERANDA
 if menu == "Beranda":
     st.markdown("## Analisis Sentimen Publik")
     st.markdown("**Kasus Dugaan Korupsi Chromebook Nadiem Makarim pada Media Sosial X**")
@@ -232,7 +232,7 @@ if menu == "Beranda":
         - Prediksi sentimen teks baru secara real-time  
         """)
 
-# ─── ANALISIS DATA ─────────────────────────────────────────────────────────────
+#  ANALISIS DATA 
 elif menu == "Analisis Data":
     st.markdown("## Analisis Data")
     if not data_loaded:
@@ -240,7 +240,7 @@ elif menu == "Analisis Data":
     else:
         # Distribusi sentimen
         st.markdown("#### Distribusi Label Sentimen")
-        st.markdown("Berikut merupakan distribusi label sentimen pada dataset berdasarkan hasil pelabelan otomatis menggunakan metode Lexicon-Based.")
+        st.markdown("Berikut merupakan distribusi label sentimen pada dataset berdasarkan hasil pelabelan menggunakan metode Lexicon-Based.")
         c1, c2 = st.columns(2)
         with c1:
             if 'Sentimen_Lexicon' in df_raw.columns:
@@ -272,7 +272,7 @@ elif menu == "Analisis Data":
                 fig.tight_layout()
                 st.pyplot(fig); plt.close()
 
-        interpretasi("Dari total 1.193 data, mayoritas tweet bersifat Negatif (529 data / 44,3%), diikuti Netral (430 data / 36,0%), dan Positif (234 data / 19,6%). Dominannya sentimen negatif mengindikasikan bahwa publik di media sosial X cenderung memberikan respons yang tidak mendukung terhadap kasus dugaan korupsi Chromebook Nadiem Makarim.")
+        interpretasi("Dari total 1.193 data, mayoritas tweet bersifat Negatif sebanyak 529 data (44,3%), diikuti Netral sebanyak 430 data (36,0%), dan Positif sebanyak 234 data (19,6%). Dominannya sentimen negatif mengindikasikan bahwa publik di media sosial X cenderung memberikan respons yang tidak mendukung terhadap kasus dugaan korupsi Chromebook Nadiem Makarim.")
 
         st.divider()
 
@@ -310,9 +310,9 @@ elif menu == "Analisis Data":
         c7.metric("Recall", "74.48%")
         c8.metric("F1-Score", "74.15%")
         st.info("Kernel terbaik: **RBF** (C=100, gamma=0.1) · CV Score: 0.6582 · Rata-rata CV Accuracy: 70.16%")
-        interpretasi("Model SVM dengan kernel RBF berhasil memprediksi 178 dari 239 data uji dengan benar (akurasi 74,48%). Kernel RBF dipilih sebagai terbaik berdasarkan best score cross-validation tertinggi (0,6582) dibandingkan kernel Linear dan Polynomial yang sama-sama menghasilkan score 0,6561.")
+        interpretasi("Model SVM dengan kernel RBF berhasil memprediksi 178 dari 239 data uji dengan benar (akurasi 74,48%). Kernel RBF dipilih sebagai terbaik berdasarkan best score cross-validation tertinggi (0,6582) dibandingkan kernel Linear dan Polynomial.")
 
-# ─── EVALUASI MODEL ────────────────────────────────────────────────────────────
+#  EVALUASI MODEL 
 elif menu == "Evaluasi Model":
     st.markdown("## Evaluasi Model")
     st.markdown("Halaman ini menampilkan hasil evaluasi mendalam model SVM kernel RBF melalui Confusion Matrix dan Kurva ROC.")
@@ -345,10 +345,10 @@ elif menu == "Evaluasi Model":
                 fig.tight_layout()
                 st.pyplot(fig); plt.close()
 
-                interpretasi("Kelas Negatif memiliki prediksi terbaik dengan 92 dari 106 data berhasil diklasifikasikan dengan benar (86,8%). Kelas Positif memiliki performa terendah — dari 47 data, hanya 26 yang diprediksi benar (55,3%), dan 19 di antaranya salah diklasifikasikan sebagai Netral. Hal ini kemungkinan karena tweet positif dan netral memiliki konteks yang mirip sehingga sulit dibedakan oleh model.")
+                interpretasi("Berdasarkan Confusion Matrix, model SVM dengan kernel RBF menunjukkan bahwa performa prediksi terbaik terdapat pada kelas negatif. Dari total 106 data sentimen negatif, sebanyak 92 data berhasil diprediksi dengan benar sebagai negatif, sedangkan 12 data salah diklasifikasikan sebagai netral dan 2 data lainnya salah diprediksi sebagai positif. Pada kelas netral yang berjumlah 86 data, model mampu memprediksi benar sebanyak 60 data sebagai netral, sementara 18 data salah diprediksi sebagai negatif dan 8 data salah diprediksi sebagai positif. Adapun pada kelas positif yang terdiri dari 47 data, model hanya mampu memprediksi benar sebanyak 26 data sebagai positif, sedangkan 19 data salah diklasifikasikan sebagai netral dan 2 data lainnya salah diprediksi sebagai negatif. Hasil tersebut menunjukkan bahwa model SVM kernel RBF lebih baik dalam mengenali sentimen negatif dibandingkan sentimen netral dan positif, serta masih mengalami kesulitan dalam membedakan sentimen positif dengan netral..")
 
         with t2:
-            st.markdown("#### Kurva ROC — Kernel RBF")
+            st.markdown("#### Kurva ROC: Kernel RBF")
             st.markdown("Kurva ROC menggambarkan kemampuan model dalam membedakan antar kelas sentimen pada berbagai threshold.")
             if 'filtered_text_stem' in df_raw.columns and 'Sentimen_Lexicon' in df_raw.columns:
                 with st.spinner("Memuat kurva ROC..."):
@@ -383,7 +383,7 @@ elif menu == "Evaluasi Model":
 
                 interpretasi("Kurva ROC model SVM kernel RBF menunjukkan performa klasifikasi yang baik pada semua kelas. Kelas Negatif memiliki AUC tertinggi (0,941), diikuti Positif (0,922), dan Netral (0,820). Nilai AUC di atas 0,8 untuk semua kelas menunjukkan model memiliki kemampuan diskriminasi yang baik. Kelas Netral memiliki AUC terendah, konsisten dengan hasil evaluasi yang menunjukkan kelas ini paling sulit dibedakan dari kelas lainnya.")
 
-# ─── WORDCLOUD ─────────────────────────────────────────────────────────────────
+#  WORDCLOUD
 elif menu == "WordCloud":
     st.markdown("## WordCloud")
     st.markdown("WordCloud menampilkan kata-kata yang paling sering muncul dalam dataset, di mana ukuran kata mencerminkan frekuensi kemunculannya.")
@@ -420,7 +420,7 @@ elif menu == "WordCloud":
             }
             interpretasi(interp_map[pilihan])
 
-# ─── N-GRAM ────────────────────────────────────────────────────────────────────
+#  N-GRAM 
 elif menu == "N-Gram":
     st.markdown("## Analisis N-Gram")
     st.markdown("Analisis N-Gram dilakukan untuk mengetahui pola kata dan frasa yang paling sering muncul dalam dataset.")
@@ -466,7 +466,7 @@ elif menu == "N-Gram":
                 "Trigram paling dominan adalah 'duga korupsi ada' (±82 kali) dan 'tindak pidana korupsi' (±75 kali), yang mempertegas bahwa narasi utama di media X berpusat pada dugaan tindak pidana korupsi. Trigram 'korupsi ada laptop' dan 'adil tindak pidana' menunjukkan diskusi spesifik terkait pengadaan laptop Chromebook dan tuntutan keadilan hukum."
             )
 
-# ─── PREDIKSI ──────────────────────────────────────────────────────────────────
+#  PREDIKSI 
 elif menu == "Prediksi Sentimen":
     st.markdown("## Prediksi Sentimen")
     st.markdown("Masukkan teks tweet untuk diprediksi sentimennya secara real-time menggunakan model SVM yang telah dilatih.")
