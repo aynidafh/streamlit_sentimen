@@ -158,7 +158,7 @@ def preprocess(text):
     return ' '.join(words)
 
 def interpretasi(teks):
-    st.markdown(f'<div class="interpretasi">💡 <b>Interpretasi:</b> {teks}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="interpretasi"> <b>Interpretasi:</b> {teks}</div>', unsafe_allow_html=True)
 
 #  SIDEBAR 
 st.sidebar.markdown("### MENU")
@@ -302,7 +302,7 @@ elif menu == "Analisis Data":
             interpretasi("Distribusi jumlah karakter dan kata per tweet menunjukkan pola right-skewed (condong ke kanan), artinya sebagian besar tweet memiliki panjang yang relatif pendek yaitu antara 50–200 karakter atau 10–50 kata per tweet. Hanya sedikit tweet yang memiliki panjang ekstrem, kemungkinan merupakan thread atau quote tweet yang panjang.")
 
         st.divider()
-        st.markdown("#### Performa Model SVM — Kernel RBF")
+        st.markdown("#### Performa Model SVM Kernel RBF")
         st.markdown("Berikut merupakan ringkasan hasil evaluasi model SVM dengan kernel terbaik yang dipilih berdasarkan GridSearchCV.")
         c5, c6, c7, c8 = st.columns(4)
         c5.metric("Accuracy", "74.48%")
@@ -323,7 +323,7 @@ elif menu == "Evaluasi Model":
         t1, t2 = st.tabs(["Confusion Matrix", "Kurva ROC"])
 
         with t1:
-            st.markdown("#### Confusion Matrix — Kernel RBF")
+            st.markdown("#### Confusion Matrix Kernel RBF")
             st.markdown("Confusion matrix menampilkan perbandingan antara label prediksi model dengan label sebenarnya.")
             if 'filtered_text_stem' in df_raw.columns and 'Sentimen_Lexicon' in df_raw.columns:
                 with st.spinner("Memuat confusion matrix..."):
